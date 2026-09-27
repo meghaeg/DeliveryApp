@@ -77,9 +77,11 @@
     <Compile Include="ApplicationLayer\Interface\ICustomerRepository.cs" />
     <Compile Include="ApplicationLayer\Interface\IParcelRepository.cs" />
     <Compile Include="ApplicationLayer\Service\CurrentSessionManager.cs" />
+    <Compile Include="ApplicationLayer\Service\ParcelService.cs" />
     <Compile Include="Domain\Enums\DeliveryStatus.cs" />
     <Compile Include="Domain\Model\Customer.cs" />
     <Compile Include="Domain\Model\Parcel.cs" />
+    <Compile Include="Domain\Model\Result.cs" />
     <Compile Include="InfrastructureLayer\CustomerRepository.cs" />
     <Compile Include="InfrastructureLayer\FileHandlingService.cs" />
     <Compile Include="InfrastructureLayer\FilePath.Designer.cs">
@@ -88,6 +90,9 @@
       <DependentUpon>FilePath.resx</DependentUpon>
     </Compile>
     <Compile Include="InfrastructureLayer\ParcelRepository.cs" />
+    <Compile Include="PresentationLayer\Helper\InputValidator.cs" />
+    <Compile Include="PresentationLayer\View\ConsoleOperator.cs" />
+    <Compile Include="PresentationLayer\View\ParcelView.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -95,10 +100,7 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="PresentationLayer\Helper\" />
-    <Folder Include="PresentationLayer\View\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <EmbeddedResource Include="InfrastructureLayer\FilePath.resx">
       <Generator>ResXFileCodeGenerator</Generator>

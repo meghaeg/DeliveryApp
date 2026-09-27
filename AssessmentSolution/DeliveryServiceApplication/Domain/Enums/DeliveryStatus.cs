@@ -11,5 +11,7 @@
         InTransit,
 
         Delivered,
+
+        Cancelled,
     }
 }
