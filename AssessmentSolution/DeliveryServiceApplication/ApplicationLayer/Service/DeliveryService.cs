@@ -18,6 +18,8 @@ namespace DeliveryServiceApplication.ApplicationLayer.Service
 
         private readonly IParcelRepository _parcelRepository;
 
+        public Action<Parcel> OnParcelStatusChanged;
+
         public DeliveryService(IDeliveryAgentRepo deliveryAgentRepo, IParcelRepository parcelRepository)
         {
             this._deliveryAgentRepository = deliveryAgentRepo;
@@ -60,6 +62,7 @@ namespace DeliveryServiceApplication.ApplicationLayer.Service
                 parcel.ParcelStatus = DeliveryStatus.Delivered;
                 parcel.DeliveredTime = DateTime.Now;
                 this._parcelRepository.UpdateParcel(parcel);
+                OnParcelStatusChanged?.Invoke(parcel);
             }
             else if (parcel.ParcelStatus == DeliveryStatus.InTransit)
             {
@@ -76,37 +79,37 @@ namespace DeliveryServiceApplication.ApplicationLayer.Service
 
         public async Task DoDeliveryService(DeliveryAgent deliveryAgent)
         {
-            List<Parcel> parcelToDeliver;
-            while (deliveryAgent.AgentStatus == DeliveryAgentStatus.Available)
+            while (true)
             {
+                Parcel parcel;
                 lock (_parcelLock)
                 {
-                    parcelToDeliver = this._pendingDeliveries;
+                    parcel = this._pendingDeliveries.FirstOrDefault(x => x.ParcelStatus == DeliveryStatus.WaitingForPickUp);
+                    if (parcel == null)
+                    {
+                        return;
+                    }
+
+                    deliveryAgent.AgentStatus = DeliveryAgentStatus.Processing;
+                    deliveryAgent.ParcelId = parcel.ParcelId;
+                    parcel.PickUpTime = DateTime.Now;
+                    parcel.ParcelStatus = DeliveryStatus.PickedUp;
+                    parcel.DeliveryAgentId = deliveryAgent.AgentId;
                 }
 
-                foreach (var parcel in parcelToDeliver)
-                {
-                    if (parcel.ParcelStatus == DeliveryStatus.WaitingForPickUp)
-                    {
-                        deliveryAgent.AgentStatus = DeliveryAgentStatus.Processing;
-                        deliveryAgent.ParcelId = parcel.ParcelId;
-                        this._deliveryAgentRepository.UpdateDeliveryAgentStatus(deliveryAgent);
-                        parcel.PickUpTime = DateTime.Now;
-                        parcel.ParcelStatus = DeliveryStatus.PickedUp;
-                        parcel.DeliveryAgentId = deliveryAgent.AgentId;
-                        this._parcelRepository.UpdateParcel(parcel);
-                        await Task.Delay(2000);
-                        parcel.ParcelStatus = DeliveryStatus.InTransit;
-                        this._parcelRepository.UpdateParcel(parcel);
-                        await Task.Delay(3000);
-                        parcel.ParcelStatus = DeliveryStatus.Delivered;
-                        parcel.DeliveredTime = DateTime.Now;
-                        this._parcelRepository.UpdateParcel(parcel);
-                        deliveryAgent.AgentStatus = DeliveryAgentStatus.Available;
-                        deliveryAgent.ParcelId = Guid.Empty;
-                        this._deliveryAgentRepository.UpdateDeliveryAgentStatus(deliveryAgent);
-                    }
-                }
+                this._parcelRepository.UpdateParcel(parcel);
+                this._deliveryAgentRepository.UpdateDeliveryAgentStatus(deliveryAgent);
+                await Task.Delay(2000);
+                parcel.ParcelStatus = DeliveryStatus.InTransit;
+                this._parcelRepository.UpdateParcel(parcel);
+                await Task.Delay(3000);
+                parcel.ParcelStatus = DeliveryStatus.Delivered;
+                parcel.DeliveredTime = DateTime.Now;
+                this._parcelRepository.UpdateParcel(parcel);
+                OnParcelStatusChanged?.Invoke(parcel);
+                deliveryAgent.AgentStatus = DeliveryAgentStatus.Available;
+                deliveryAgent.ParcelId = Guid.Empty;
+                this._deliveryAgentRepository.UpdateDeliveryAgentStatus(deliveryAgent);
             }
         }
 

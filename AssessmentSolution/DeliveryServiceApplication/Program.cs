@@ -22,6 +22,9 @@ namespace DeliveryServiceApplication
                 deliveryService.CheckforPendingDeliveries();
                 _ = deliveryService.InitialAgentService();
             });
+            deliveryService.OnParcelStatusChanged += parcel => {
+                NotificationService.ShowNotification(parcel);
+            };
             timer.Start();
             var parcelService = new ParcelService(parcelRepository);
             var consoleOperator = new ConsoleOperator(parcelService, deliveryService);

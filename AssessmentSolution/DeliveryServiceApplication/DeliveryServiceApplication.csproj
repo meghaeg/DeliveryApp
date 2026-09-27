@@ -96,8 +96,10 @@
     </Compile>
     <Compile Include="InfrastructureLayer\ParcelRepository.cs" />
     <Compile Include="PresentationLayer\Helper\InputValidator.cs" />
+    <Compile Include="PresentationLayer\Helper\TextColor.cs" />
     <Compile Include="PresentationLayer\View\AdminView.cs" />
     <Compile Include="PresentationLayer\View\ConsoleOperator.cs" />
+    <Compile Include="PresentationLayer\View\NotificationService.cs" />
     <Compile Include="PresentationLayer\View\ParcelView.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
