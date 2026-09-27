@@ -75,14 +75,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationLayer\Interface\ICustomerRepository.cs" />
+    <Compile Include="ApplicationLayer\Interface\IDeliveryAgentRepo.cs" />
     <Compile Include="ApplicationLayer\Interface\IParcelRepository.cs" />
     <Compile Include="ApplicationLayer\Service\CurrentSessionManager.cs" />
+    <Compile Include="ApplicationLayer\Service\DeliveryService.cs" />
     <Compile Include="ApplicationLayer\Service\ParcelService.cs" />
+    <Compile Include="Domain\Enums\DeliveryAgentStatus.cs" />
     <Compile Include="Domain\Enums\DeliveryStatus.cs" />
     <Compile Include="Domain\Model\Customer.cs" />
+    <Compile Include="Domain\Model\DeliveryAgent.cs" />
     <Compile Include="Domain\Model\Parcel.cs" />
     <Compile Include="Domain\Model\Result.cs" />
     <Compile Include="InfrastructureLayer\CustomerRepository.cs" />
+    <Compile Include="InfrastructureLayer\DeliveryAgentRepository.cs" />
     <Compile Include="InfrastructureLayer\FileHandlingService.cs" />
     <Compile Include="InfrastructureLayer\FilePath.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -91,6 +96,7 @@
     </Compile>
     <Compile Include="InfrastructureLayer\ParcelRepository.cs" />
     <Compile Include="PresentationLayer\Helper\InputValidator.cs" />
+    <Compile Include="PresentationLayer\View\AdminView.cs" />
     <Compile Include="PresentationLayer\View\ConsoleOperator.cs" />
     <Compile Include="PresentationLayer\View\ParcelView.cs" />
     <Compile Include="Program.cs" />

@@ -20,6 +20,8 @@ namespace DeliveryServiceApplication.Domain.Model
             this.ParcelStatus = parcelStatus;
         }
 
+        public int DeliveryAgentId { get; set; }
+
         public Guid ParcelId { get; set; }
 
         public Guid CustomerId { get; set; }

@@ -135,11 +135,11 @@ namespace DeliveryServiceApplication.PresentationLayer.View
                 Console.WriteLine($" {index++}. Parcel Type: {parcel.ParcelType}, Source : {parcel.Source}, Destination: {parcel.Destination}, Booked Time: {parcel.BookedTime}, Delivery Status: {parcel.ParcelStatus}");
                 if (parcel.ParcelStatus == DeliveryStatus.Delivered)
                 {
-                    Console.WriteLine($"PickUp Time: {parcel.PickUpTime}, Delivery Time: {parcel.DeliveredTime}");
+                    Console.WriteLine($"PickUp Time: {parcel.PickUpTime}, Delivery Time: {parcel.DeliveredTime}, Delivery AgentID: {parcel.DeliveryAgentId}");
                 }
                 else if (parcel.ParcelStatus == DeliveryStatus.PickedUp)
                 {
-                    Console.WriteLine($"PickUp Time: {parcel.PickUpTime}");
+                    Console.WriteLine($"PickUp Time: {parcel.PickUpTime}, Delivery AgentID: {parcel.DeliveryAgentId}");
                 }
             }
         }

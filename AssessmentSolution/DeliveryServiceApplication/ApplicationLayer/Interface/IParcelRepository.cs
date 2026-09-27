@@ -9,6 +9,6 @@ namespace DeliveryServiceApplication.ApplicationLayer.Interface
 
         IEnumerable<Parcel> FetchAllParcels();
 
-        void UpdateParcelStatus(Parcel parcel);
+        void UpdateParcel(Parcel parcel);
     }
 }

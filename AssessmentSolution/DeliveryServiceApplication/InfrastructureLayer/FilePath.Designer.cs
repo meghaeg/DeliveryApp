@@ -70,6 +70,15 @@ namespace DeliveryServiceApplication.InfrastructureLayer {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to DeliveryAgentRepository.json.
+        /// </summary>
+        internal static string DeliveryAgentFile {
+            get {
+                return ResourceManager.GetString("DeliveryAgentFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ParcelRepository.json.
         /// </summary>
         internal static string ParcelFile {

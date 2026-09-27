@@ -120,6 +120,9 @@
   <data name="CustomerFile" xml:space="preserve">
     <value>CustomerRepository.json</value>
   </data>
+  <data name="DeliveryAgentFile" xml:space="preserve">
+    <value>DeliveryAgentRepository.json</value>
+  </data>
   <data name="ParcelFile" xml:space="preserve">
     <value>ParcelRepository.json</value>
   </data>

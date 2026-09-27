@@ -18,6 +18,7 @@ namespace DeliveryServiceApplication.ApplicationLayer.Service
 
         public void BookParcel(Parcel parcel)
         {
+            parcel.ParcelStatus = DeliveryStatus.WaitingForPickUp;
             this._parcelRepository.AddParcel(parcel);
         }
 
@@ -31,7 +32,7 @@ namespace DeliveryServiceApplication.ApplicationLayer.Service
             var parcels = this.GetAllParcels();
             var parcelToUpdate = parcels.FirstOrDefault(x => x.ParcelId == parcel.ParcelId);
             parcelToUpdate.ParcelStatus = parcel.ParcelStatus;
-            this._parcelRepository.UpdateParcelStatus(parcel);
+            this._parcelRepository.UpdateParcel(parcel);
         }
 
         public Result CancelParcel(int index)
